@@ -1,0 +1,106 @@
+﻿<Page x:Class="Ирида.ClientsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Ирида"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="920"
+      Title="ClientsPage"
+      Loaded="Page_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="270"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="Клиенты" HorizontalAlignment="Center" FontSize="20" FontFamily="Monotype Corsiva" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Normal"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Margin="0 5 0 0">
+                            <TextBlock Text="Фамилия" Margin="5"/>
+                            <TextBlock Text="Имя" Margin="5"/>
+                            <TextBlock Text="Отчество" Margin="5"/>
+                            <TextBlock Text="Паспортные данные" Margin="5"/>
+                            <TextBlock Text="Телефон" Margin="5"/>
+                            <TextBlock Text="Дата рождения" Margin="5"/>
+                            <TextBlock Text="Копия паспорта" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Margin="40 5 0 0">
+                            <TextBox Name="LastName" Width="260"/>
+                            <TextBox Name="Name" Width="260"/>
+                            <TextBox Name="Patronomic" Width="260"/>
+                            <TextBox Name="Pasport" Width="260"/>
+                            <TextBox Name="Phone" Width="260"/>
+                            <DatePicker Name="BirthDate" Width="260"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Name="PasportCopy" Width="50" Height="30" HorizontalAlignment="Left" IsEnabled="False"/>
+                                <Button Name="PasportCopyOpenButton" Content="Открыть" Width="90" Margin="5" Click="PasportCopyOpenButton_Click"/>
+                                <Button Name="PasportCopyEditButton" Content="Изменить" Width="100" Click="PasportCopyEditButton_Click"/>
+                                <Button Name="PasportCopyClearButton" Content="Удалить" Width="100" Click="PasportCopyClearButton_Click" Margin="5"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Name="Save_button" Click="Save_button_Click" Content="Сохранить" Width="150" Margin="0 10 10 10"/>
+                        <Button Name="Reset_button" Click="Reset_button_Click" Content="Сброс" Width="150" Cursor="Hand" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10">
+                        <Button Name="AccommodationsClient_button" Click="AccommodationsClient_button_Click" Width="150" Height="50" Margin="10">
+                            <TextBlock TextWrapping="Wrap">Поселение по клиенту</TextBlock>
+                        </Button>
+                        <Button Name="ReservationClient_button" Click="ReservationClient_button_Click" Width="150" Height="50" Margin="10" Cursor="Hand">
+                            <TextBlock TextWrapping="Wrap">Бронирование по клиенту</TextBlock>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Center" Margin="10">
+                        <TextBlock Text="Поиск" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                        <TextBox Name="LastName_search" TextChanged="Pasport_search_TextChanged" Width="161" materialDesign:HintAssist.Hint="Фамилия"/>
+                        <TextBox Name="Pasport_search" TextChanged="Pasport_search_TextChanged" Width="161" materialDesign:HintAssist.Hint="Паспорт"/>
+                        <Button Name="Reset_search_button" Click="Reset_search_button_Click" Margin="0 10 0 0" Content="Сброс" Width="100"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <DataGrid SelectionMode="Single" SelectionUnit="FullRow" Name="ClientsGrid" Grid.Row="1" GridLinesVisibility="All" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№ n/n" Width="80" Binding="{Binding IdClients}"/>
+                    <DataGridTextColumn Header="Фамилия" Width="2*" Binding="{Binding LastName}"/>
+                    <DataGridTextColumn Header="Имя" Width="2*" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Отчество" Width="3*" Binding="{Binding Patronomic}"/>
+                    <DataGridTextColumn Header="Дата рождения" Width="2*" Binding="{Binding BirthDate,StringFormat=dd.MM.yyyy}"/>
+                    <DataGridTextColumn Header="Номер телефона" Width="3*" Binding="{Binding PhoneNumber}"/>
+                    <DataGridTextColumn Header="Паспорт" Width="3*" Binding="{Binding Pasport}"/>
+                    <DataGridTemplateColumn Width="140" Header="Копия паспорта">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Name="PasportCopyOpenButton2" Content="Открыть" Width="90" Margin="5" Click="PasportCopyOpenButton2_Click"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="250" Header="Действия">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Name="ButtonEdit" Click="ButtonEdit_Click"
+                                            Width="100" Content="Изменить" Margin="5,0" />
+                                    <Button Name="ButtonDelete" Click="ButtonDelete_Click"
+                                            Width="90" Content="Удалить" Margin="5,0" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -1,0 +1,89 @@
+﻿<Page x:Class="Ирида.AccommodationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Ирида"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AccommodationPage" Loaded="Page_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="240"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="Поселение" HorizontalAlignment="Center" FontSize="20" FontFamily="Monotype Corsiva" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Normal"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Margin="0 5 0 0">
+                            <TextBlock Text="Клиент" Margin="5"/>
+                            <TextBlock Text="Номер" Margin="5"/>
+                            <TextBlock Text="Дата Поселения" Margin="5"/>
+                            <TextBlock Text="Дата освобождения" Margin="5"/>
+                            <TextBlock Text="Цена проживания" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Margin="40 5 0 0">
+                            <ComboBox IsEditable="True" Name="ClientBoxA" Width="260"/>
+                            <ComboBox IsEditable="True" SelectionChanged="RoomBoxA_SelectionChanged" Name="RoomBoxA" Width="260"/>
+                            <DatePicker SelectedDateChanged="DateAccommodationA_SelectedDateChanged" Name="DateAccommodationA" Width="260"/>
+                            <DatePicker SelectedDateChanged="DateOutA_SelectedDateChanged" Name="DateOutA" Width="260"/>
+                            <TextBox IsEnabled="False" Name="PriceA" Width="260"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Name="Save_A_button" Click="Save_A_Button_Click" Content="Сохранить" Width="150" Margin="0 10 10 10"/>
+                        <Button Name="Reset_A_button" Click="Reset_A_button_Click" Content="Сброс" Width="150" Cursor="Hand" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel>
+                    <StackPanel>
+                        <Button Name="InformationClientButton" Click="InformationClientButton_Click" Width="150" Height="50" Margin="10">
+                            <TextBlock TextWrapping="Wrap">Информация о клиенте</TextBlock>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center" Margin="10">
+                            <TextBlock Text="Поиск" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBox Name="SearchA" TextChanged="SearchA_TextChanged" Width="161" materialDesign:HintAssist.Hint="Фамилия" HorizontalAlignment="Center"/>
+                            <TextBox Name="SearchAPasport" TextChanged="SearchA_TextChanged" Width="161" materialDesign:HintAssist.Hint="Паспорт" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <Button Name="AccommodationsOutToday_button" Click="AccommodationsOutToday_button_Click" Width="150" Height="50" Margin="10">
+                                <TextBlock TextWrapping="Wrap">Отъезды на сегодня</TextBlock>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button Name="Search_Reset_button" Click="Search_Reset_button_Click" Margin="0 10 0 0" Content="Сброс" Width="100" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <DataGrid Name="AccommodationsGrid" Grid.Row="1" SelectionMode="Single" SelectionUnit="FullRow" GridLinesVisibility="All" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№ n/n" Width="80" Binding="{Binding IdAccommodations}"/>
+                    <DataGridTextColumn Header="Клиент" Width="3*" Binding="{Binding Clients}"/>
+                    <DataGridTextColumn Header="Номер" Width="2*" Binding="{Binding Rooms}"/>
+                    <DataGridTextColumn Header="Дата поселения" Width="2*" Binding="{Binding DateInA,StringFormat=dd.MM.yyyy}"/>
+                    <DataGridTextColumn Header="Дата освобождения" Width="2*" Binding="{Binding DateOutA,StringFormat=dd.MM.yyyy}"/>
+                    <DataGridTextColumn Header="Цена поселения" Width="2*" Binding="{Binding PriceA}"/>
+                    <DataGridTemplateColumn Width="250" Header="Действия">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Name="ButtonEdit" Click="ButtonEdit_Click"
+                                            Width="100" Content="Изменить" Margin="5,0" />
+                                    <Button Name="ButtonDelete" Click="ButtonDelete_Click"
+                                            Width="90" Content="Удалить" Margin="5,0" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+    </Grid>
+</Page>

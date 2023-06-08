@@ -1,0 +1,33 @@
+﻿<Window x:Class="Ирида.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ирида"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        WindowStyle="SingleBorderWindow"
+        Title="Irida" MinHeight="700" MinWidth="1050">
+    <Grid Background="White"
+          >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Grid.Row="1" Width="200" HorizontalAlignment="Left" Margin="0,0,0,10">
+            <Button Content="Номера" Click="Button_Click_rooms" Width="150" Height="50" Margin="10 10 0 0" HorizontalAlignment="Left" Cursor="Hand" FontSize="16"/>
+            <Button Content="Клиенты" Click="Button_Click_Clients" Width="150" Height="50" Margin="10 10 0 0" HorizontalAlignment="Left" FontSize="16" Cursor="Hand"/>
+            <Button Content="Бронирование" Click="Button_Click_reservation" Width="150" Height="50" Margin="10 10 0 0" HorizontalAlignment="Left" FontSize="16" Cursor="Hand"/>
+            <Button Name="Accommodation_Button" Click="Accommodation_Button_Click" Content="Поселение" Width="150" Height="50" Margin="10 10 0 0" HorizontalAlignment="Left" FontSize="16" Cursor="Hand"/>
+            <Button x:Name="Exit_Button" Click="Exit_Button_Click" Content="Выход" Width="150" Height="50" Margin="10 30 0 0" HorizontalAlignment="left" FontSize="16" Cursor="Hand"/>
+        </StackPanel>
+        <TextBlock Text="Ирида" HorizontalAlignment="Center" Grid.Column="1" FontSize="36" FontFamily="Monotype Corsiva" VerticalAlignment="Center" FontWeight="Bold" FontStyle="Normal"/>
+        <Frame x:Name="MainFrame" Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden"/>
+        <Button Name="Close_page_button" Click="Close_page_button_Click" Grid.Column="1" Content="Закрыть страницу" Width="160" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Cursor="Hand"/>
+    </Grid>
+</Window>

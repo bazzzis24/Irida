@@ -1,0 +1,99 @@
+﻿<Page x:Class="Ирида.ReservationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Ирида"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ReservationPage"
+      Loaded="Page_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="270"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="Бронирование" HorizontalAlignment="Center" FontSize="20" FontFamily="Monotype Corsiva" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Normal"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Margin="0 5 0 0">
+                            <TextBlock Text="Клиент" Margin="5"/>
+                            <TextBlock Text="Номер" Margin="5"/>
+                            <TextBlock Text="Дата бронирования" Margin="5"/>
+                            <TextBlock Text="Дата поселения" Margin="5"/>
+                            <TextBlock Text="Дата освобождения" Margin="5"/>
+                            <TextBlock Text="Цена бронирования" Margin="5"/>
+                            <TextBlock Text="Цена проживания" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Margin="40 5 0 0">
+                            <ComboBox IsEditable="True" Name="ClientBox" Width="260"/>
+                            <ComboBox SelectionChanged="RoomBox_SelectionChanged" IsEditable="True" Name="RoomBox" Width="260"/>
+                            <DatePicker SelectedDateChanged="RoomBox_SelectionChanged" Name="DateReservation" Width="260"/>
+                            <DatePicker SelectedDateChanged="RoomBox_SelectionChanged" Name="DateAccommodation" Width="260"/>
+                            <DatePicker SelectedDateChanged="RoomBox_SelectionChanged" Name="DateOut" Width="260"/>
+                            <TextBox Name="PriceReservation" IsEnabled="False" Width="260"/>
+                            <TextBox Name="PriceAccommodations" IsEnabled="False" Width="260"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Name="Save_button" Click="Save_button_Click" Content="Сохранить" Width="150" Margin="0 10 10 10"/>
+                        <Button Name="Reset_button" Click="Reset_button_Click" Content="Сброс" Width="150" Cursor="Hand" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10">
+                        <Button Name="InformationClient_button" Click="InformationClient_button_Click" Width="150" Height="50" Margin="10" Cursor="Hand">
+                            <TextBlock TextWrapping="Wrap">Информация о клиенте</TextBlock>
+                        </Button>
+                        <Button Name="AccommodationsClient_button" Click="AccommodationsClient_button_Click" Width="150" Height="50" Margin="10">
+                            <TextBlock TextWrapping="Wrap">Поселение по брони</TextBlock>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center" Margin="10">
+                            <TextBlock Text="Поиск" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <TextBox Name="ReservationsRoomSearch" TextChanged="ReservationsSearch_TextChanged" Width="161" materialDesign:HintAssist.Hint="Номер" Cursor="Arrow"/>
+                            <TextBox Name="ReservationsSearch" TextChanged="ReservationsSearch_TextChanged" Width="161" materialDesign:HintAssist.Hint="Фамилия" Cursor="Arrow"/>
+                            <TextBox Name="ReservationsPasportSearch" TextChanged="ReservationsSearch_TextChanged" Width="161" materialDesign:HintAssist.Hint="Паспорт" Cursor="Arrow"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <Button Name="ReservationsToday_button" Click="ReservationsToday_button_Click" Width="150" Height="50" Margin="10">
+                                <TextBlock TextWrapping="Wrap">Брони на сегодня</TextBlock>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button Name="ReservationsReset_button" Click="ReservationsReset_button_Click" Margin="0 10 0 0" Content="Сброс" Width="100"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <DataGrid Name="ReservationsGrid" Grid.Row="1" SelectionMode="Single" SelectionUnit="FullRow" GridLinesVisibility="All" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№ n/n" Width="80" Binding="{Binding IdReservatons}"/>
+                    <DataGridTextColumn Header="Клиент" Width="3*" Binding="{Binding Clients}"/>
+                    <DataGridTextColumn Header="Номер" Width="2*" Binding="{Binding Rooms}"/>
+                    <DataGridTextColumn Header="Дата бронирования" Width="2*" Binding="{Binding DateReservation,StringFormat=dd.MM.yyyy}"/>
+                    <DataGridTextColumn Header="Дата поселения" Width="2*" Binding="{Binding DateInR,StringFormat=dd.MM.yyyy}"/>
+                    <DataGridTextColumn Header="Дата освобождения" Width="2*" Binding="{Binding DateOutR,StringFormat=dd.MM.yyyy}"/>
+                    <DataGridTextColumn Header="Цена бронирования" Width="2*" Binding="{Binding PriceR}"/>
+                    <DataGridTemplateColumn Width="250" Header="Действия">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Name="ButtonEdit" Click="ButtonEdit_Click"
+                                            Width="100" Content="Изменить" Margin="5,0" />
+                                    <Button Name="ButtonDelete" Click="ButtonDelete_Click"
+                                            Width="90" Content="Удалить" Margin="5,0" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+    </Grid>
+</Page>
